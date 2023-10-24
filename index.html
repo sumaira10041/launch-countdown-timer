@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@500&display=swap" rel="stylesheet">
+  <title>Frontend Mentor | Launch countdown timer</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+    body{
+      min-height:100vh;
+      background:linear-gradient(hsl(234, 17%, 12%),hsl(235, 16%, 14%),hsl(236, 21%, 26%));
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .bg img{
+      overflow:hidden;
+    }
+    .app{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:absolute;
+      top:161px;
+      left:443px;
+    }
+    h1{
+      color:hsl(0, 0%, 100%);
+      font-size:20px;
+      letter-spacing:6px;
+      font-family: 'Red Hat Text', sans-serif;
+      font-weight:700;
+      word-spacing:2px;
+      font-weight:100;
+    }
+    .flip{
+      position:absolute;
+      left:336px;
+      top:266px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+     .flipdown{
+      background:hsl(236, 21%, 26%);
+      height:125px;
+      width:130px;
+      margin-right:25px;
+      border-radius:10px;
+      color: hsl(345, 95%, 68%);
+      font-size:70px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family: 'Red Hat Text', sans-serif;
+      font-weight:100;
+    }
+    .count{
+      position:absolute;
+      top:371px;
+      left:383px;
+      margin-top: 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .count div{
+      color:  hsl(237, 18%, 59%);
+      width: 150px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      margin-top:20px;
+      font-family: 'Red Hat Text', sans-serif;
+      font-weight:100;
+    }
+    .icons{
+      position:absolute;
+      top:700px;
+      left:574px;
+    }
+    .icons img{
+       margin-right:22px;
+    }
+  </style>
+</head>
+<body>
+  <section class="main">
+    <div class="bg">
+      <img src="bg-stars.svg">
+      <img src="pattern-hills.svg">
+      <div class="app">
+      <h1>WE'RE LAUNCHING SOON</h1>
+    </div><div class="flip">
+     <div class="flipdown" id="flipdown-days">
+      </div>
+      <div class="flipdown" id="flipdown-hours">
+      </div>
+      <div class="flipdown" id="flipdown-minutes">
+      </div>
+      <div class="flipdown" id="flipdown-seconds">
+      </div></div>
+    <div class="count">
+      <div>DAYS</div>
+      <div>HOURS</div>
+      <div>MINUTES</div>
+      <div>SECONDS</div>
+    </div>
+    <div class="icons">
+      <img src="icon-facebook.svg">
+      <img src="icon-pinterest.svg">
+      <img src="icon-instagram.svg">
+    </div>
+    </div>
+  </section>
+  <script>
+     const launchDate = new Date("2023-11-01T08:55:41Z")
+    const daysElement = document.getElementById("flipdown-days");
+    const hoursElement = document.getElementById("flipdown-hours");
+    const minutesElement = document.getElementById("flipdown-minutes");
+    const secondsElement = document.getElementById("flipdown-seconds");
+
+    const countdownInterval = setInterval(function () {
+      const now = new Date()
+      const distance = launchDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysElement.innerHTML = `${days}`;
+        hoursElement.innerHTML = `${hours}`;
+        minutesElement.innerHTML = `${minutes}`;
+        secondsElement.innerHTML = `${seconds}`;
+      } else {
+        clearInterval(countdownInterval);
+        daysElement.innerHTML = "0d";
+        hoursElement.innerHTML = "0h";
+        minutesElement.innerHTML = "0m";
+        secondsElement.innerHTML = "0s";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
